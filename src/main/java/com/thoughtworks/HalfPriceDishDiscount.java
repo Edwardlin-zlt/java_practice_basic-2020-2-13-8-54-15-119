@@ -2,7 +2,7 @@ package com.thoughtworks;
 
 import java.util.ArrayList;
 
-public class HalfPriceDishDiscount implements Discount{
+public class HalfPriceDishDiscount implements Discount {
     private ArrayList<OrderedDish> halfPriceItems;
     private ArrayList<OrderedDish> fullPriceItems;
     private Order order;
@@ -29,10 +29,10 @@ public class HalfPriceDishDiscount implements Discount{
     public void filterHalfPriceDishes() {
         halfPriceItems = new ArrayList<>();
         fullPriceItems = new ArrayList<>();
-        for (OrderedDish dish: order.getOrderedDishes()) {
+        for (OrderedDish dish : order.getOrderedDishes()) {
             boolean nextFlag = false;
-            for (String halfPriceDishId: DataProvider.getHalfDishIds()) {
-                if(dish.getId().equals(halfPriceDishId)){
+            for (String halfPriceDishId : DataProvider.getHalfDishIds()) {
+                if (dish.getId().equals(halfPriceDishId)) {
                     halfPriceItems.add(dish);
                     nextFlag = true;
                     break;
@@ -50,20 +50,21 @@ public class HalfPriceDishDiscount implements Discount{
 
         StringBuilder out = new StringBuilder("指定菜品半价(");
         for (int i = 0; i < halfPriceItems.size(); i++) {
-            if (i == halfPriceItems.size()-1) {
+            if (i == halfPriceItems.size() - 1) {
                 out.append(halfPriceItems.get(i).getName());
             } else {
-                out.append(halfPriceItems.get(i).getName()).append(",");
+                out.append(halfPriceItems.get(i).getName()).append("，");
             }
         }
         out.append(")，省");
-        out.append(savedAmount);
+        out.append((int) savedAmount);
+        out.append("元");
         return out.toString();
     }
 
-    public double calSavedAmount(){
+    public double calSavedAmount() {
         double price = 0;
-        for (OrderedDish dish: halfPriceItems) {
+        for (OrderedDish dish : halfPriceItems) {
             price += dish.getPrice() * 0.5 * dish.getCount();
         }
         return price;

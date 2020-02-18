@@ -9,7 +9,7 @@ public abstract class InfoRender {
         String itemDetail = renderItemDetail(order);
         String discountInfo = renderDiscountInfo(discountType);
         String totalInfo = "总计：" + (int) finalPrice + "元\n"
-            + "===================================\n";
+            + "===================================";
         return header + itemDetail + discountInfo + totalInfo;
     }
 
