@@ -11,21 +11,13 @@ public class Order {
         orderedDishes = new ArrayList<>();
     }
 
-    public String getRawOrder() {
-        return rawOrder;
-    }
-
-    public ArrayList<OrderedDish> getOrderedDishes() {
-        return orderedDishes;
-    }
-
-    public static Order orderParse(String rawOrder){
+    public static Order orderParse(String rawOrder) {
         Order order = new Order();
         String[] orderStrings = rawOrder.split(",");
         for (String str : orderStrings) {
             String id = str.split(" x ")[0];
             int count = Integer.parseInt(str.split(" x ")[1]);
-            for (Dish dish: DataProvider.getDishes()) {
+            for (Dish dish : DataProvider.getDishes()) {
                 if (dish.getId().equals(id)) {
                     OrderedDish orderedDish = new OrderedDish(dish);
                     orderedDish.setCount(count);
@@ -35,6 +27,14 @@ public class Order {
             }
         }
         return order;
+    }
+
+    public String getRawOrder() {
+        return rawOrder;
+    }
+
+    public ArrayList<OrderedDish> getOrderedDishes() {
+        return orderedDishes;
     }
 
 }

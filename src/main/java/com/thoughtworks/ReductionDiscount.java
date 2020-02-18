@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class ReductionDiscount implements Discount{
+public class ReductionDiscount implements Discount {
     private Order order;
 
     public ReductionDiscount(Order order) {

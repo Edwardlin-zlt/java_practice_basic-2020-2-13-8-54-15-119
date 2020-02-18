@@ -1,7 +1,5 @@
 package com.thoughtworks;
 
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
-
 public class OriginalPrice implements Discount {
     private Order order;
 

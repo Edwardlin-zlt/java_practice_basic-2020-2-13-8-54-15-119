@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class OrderedDish extends Dish{
+public class OrderedDish extends Dish {
     private int count;
 
     public OrderedDish(String id, String name, double price, int count) {

@@ -1,7 +1,5 @@
 package com.thoughtworks;
 
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
-
 public abstract class InfoRender {
 
     public static String render(Order order, Discount discountType, double finalPrice) {
@@ -25,7 +23,7 @@ public abstract class InfoRender {
     }
 
     private static String renderDiscountInfo(Discount discountType) {
-        if (discountType.getDescribe().equals("")){
+        if (discountType.getDescribe().equals("")) {
             return "";
         }
         return "使用优惠:\n" + discountType.getDescribe() +
