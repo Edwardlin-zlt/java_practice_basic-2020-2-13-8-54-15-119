@@ -1,28 +1,42 @@
 package com.thoughtworks;
 
-public class OrderedDish extends Dish {
+import java.util.Objects;
+
+public class OrderedDish {
+    private Dish dish;
     private int count;
 
-    public OrderedDish(String id, String name, double price, int count) {
-        super(id, name, price);
+    public OrderedDish(Dish dish, int count) {
+        this.dish = dish;
         this.count = count;
     }
 
-    public OrderedDish(Dish dish) {
-        super(dish.getId(), dish.getName(), dish.getPrice());
-        this.count = 0;
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
     public int getCount() {
         return count;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderedDish that = (OrderedDish) o;
+        return Objects.equals(dish.getId(), that.dish.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dish);
+    }
+
     public void setCount(int count) {
         this.count = count;
     }
-
-//    public double calTotalPrice(){
-//        // 用父类构造方法构造后，该属性无法直接被子类使用吗
-////        return count * price; //'price' has private access in 'com.thoughtworks.Dish'
-//    }
 }

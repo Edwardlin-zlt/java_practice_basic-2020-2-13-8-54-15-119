@@ -3,24 +3,29 @@ package com.thoughtworks.discounts;
 import com.thoughtworks.Order;
 
 public class ReductionDiscount implements Discount {
-    private Order order;
+    double finalPrice;
 
-    public ReductionDiscount(Order order) {
-        this.order = order;
+    public ReductionDiscount() {
     }
 
     @Override
-    public double calDiscountedPrice() {
+    public double calDiscountedPrice(Order order) {
         final int reductionPrice = 6;
-        double price = new OriginalPrice(order).calDiscountedPrice();
+        double price = new OriginalPrice().calDiscountedPrice(order);
         if (price < 30) {
             return price;
         }
-        return price - reductionPrice;
+        finalPrice = price - reductionPrice;
+        return finalPrice;
     }
 
     @Override
     public String getDescribe() {
         return "满30减6元，省6元";
+    }
+
+    @Override
+    public double getFinalPrice() {
+        return finalPrice;
     }
 }

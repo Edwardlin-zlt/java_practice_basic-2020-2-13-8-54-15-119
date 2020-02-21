@@ -1,40 +1,44 @@
 package com.thoughtworks.discounts;
 
-import com.thoughtworks.DataProvider;
 import com.thoughtworks.Order;
 import com.thoughtworks.OrderedDish;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HalfPriceDishDiscount implements Discount {
     private ArrayList<OrderedDish> halfPriceItems = new ArrayList<>();
     private ArrayList<OrderedDish> fullPriceItems = new ArrayList<>();
-    private Order order;
+    private List<String> halfPriceDishIDs = new ArrayList<>();
     private double savedAmount;
+    private double finalPrice;
 
-    public HalfPriceDishDiscount(Order order) {
-        this.order = order;
-        filterHalfPriceDishes();
+    public HalfPriceDishDiscount() {
         savedAmount = calSavedAmount();
     }
 
-    @Override
-    public double calDiscountedPrice() {
-        double price = 0;
-        for (OrderedDish dish : halfPriceItems) {
-            price += dish.getPrice() * 0.5 * dish.getCount();
-        }
-        for (OrderedDish dish : fullPriceItems) {
-            price += dish.getPrice() * dish.getCount();
-        }
-        return price;
+    public void addHalfPriceDishIds(List<String> ids) {
+        halfPriceDishIDs = ids;
     }
 
-    public void filterHalfPriceDishes() {
+    @Override
+    public double calDiscountedPrice(Order order) {
+        filterHalfPriceDishes(order);
+        calSavedAmount();
+        for (OrderedDish dish : halfPriceItems) {
+            finalPrice += dish.getDish().getPrice() * 0.5 * dish.getCount();
+        }
+        for (OrderedDish dish : fullPriceItems) {
+            finalPrice += dish.getDish().getPrice() * dish.getCount();
+        }
+        return finalPrice;
+    }
+
+    public void filterHalfPriceDishes(Order order) {
         for (OrderedDish dish : order.getOrderedDishes()) {
             boolean nextFlag = false;
-            for (String halfPriceDishId : DataProvider.getHalfDishIds()) {
-                if (dish.getId().equals(halfPriceDishId)) {
+            for (String halfPriceDishId : halfPriceDishIDs) {
+                if (dish.getDish().getId().equals(halfPriceDishId)) {
                     halfPriceItems.add(dish);
                     nextFlag = true;
                     break;
@@ -53,9 +57,9 @@ public class HalfPriceDishDiscount implements Discount {
         StringBuilder out = new StringBuilder("指定菜品半价(");
         for (int i = 0; i < halfPriceItems.size(); i++) {
             if (i == halfPriceItems.size() - 1) {
-                out.append(halfPriceItems.get(i).getName());
+                out.append(halfPriceItems.get(i).getDish().getName());
             } else {
-                out.append(halfPriceItems.get(i).getName()).append("，");
+                out.append(halfPriceItems.get(i).getDish().getName()).append("，");
             }
         }
         out.append(")，省");
@@ -64,11 +68,15 @@ public class HalfPriceDishDiscount implements Discount {
         return out.toString();
     }
 
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
     public double calSavedAmount() {
-        double price = 0;
+        savedAmount = 0;
         for (OrderedDish dish : halfPriceItems) {
-            price += dish.getPrice() * 0.5 * dish.getCount();
+            savedAmount += dish.getDish().getPrice() * 0.5 * dish.getCount();
         }
-        return price;
+        return savedAmount;
     }
 }

@@ -4,23 +4,27 @@ import com.thoughtworks.Order;
 import com.thoughtworks.OrderedDish;
 
 public class OriginalPrice implements Discount {
-    private Order order;
+    private double finalPrice;
 
-    public OriginalPrice(Order order) {
-        this.order = order;
+    public OriginalPrice() {
     }
 
     @Override
-    public double calDiscountedPrice() {
-        double totalPrice = 0;
+    public double calDiscountedPrice(Order order) {
+        finalPrice = 0;
         for (OrderedDish orderedDish : order.getOrderedDishes()) {
-            totalPrice += orderedDish.getPrice() * orderedDish.getCount();
+            finalPrice += orderedDish.getDish().getPrice() * orderedDish.getCount();
         }
-        return totalPrice;
+        return finalPrice;
     }
 
     @Override
     public String getDescribe() {
         return "";
+    }
+
+    @Override
+    public double getFinalPrice() {
+        return finalPrice;
     }
 }
