@@ -1,5 +1,10 @@
 package com.thoughtworks;
 
+import com.thoughtworks.discounts.Discount;
+import com.thoughtworks.discounts.HalfPriceDishDiscount;
+import com.thoughtworks.discounts.OriginalPrice;
+import com.thoughtworks.discounts.ReductionDiscount;
+
 public class Restaurant {
 
     public String bestCharge(String selectedItems) {

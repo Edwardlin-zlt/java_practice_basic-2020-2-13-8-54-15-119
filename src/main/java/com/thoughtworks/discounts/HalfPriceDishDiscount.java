@@ -1,10 +1,14 @@
-package com.thoughtworks;
+package com.thoughtworks.discounts;
+
+import com.thoughtworks.DataProvider;
+import com.thoughtworks.Order;
+import com.thoughtworks.OrderedDish;
 
 import java.util.ArrayList;
 
 public class HalfPriceDishDiscount implements Discount {
-    private ArrayList<OrderedDish> halfPriceItems;
-    private ArrayList<OrderedDish> fullPriceItems;
+    private ArrayList<OrderedDish> halfPriceItems = new ArrayList<>();
+    private ArrayList<OrderedDish> fullPriceItems = new ArrayList<>();
     private Order order;
     private double savedAmount;
 
@@ -27,8 +31,6 @@ public class HalfPriceDishDiscount implements Discount {
     }
 
     public void filterHalfPriceDishes() {
-        halfPriceItems = new ArrayList<>();
-        fullPriceItems = new ArrayList<>();
         for (OrderedDish dish : order.getOrderedDishes()) {
             boolean nextFlag = false;
             for (String halfPriceDishId : DataProvider.getHalfDishIds()) {

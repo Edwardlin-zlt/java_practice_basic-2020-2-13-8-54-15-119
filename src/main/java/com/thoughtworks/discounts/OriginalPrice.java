@@ -1,4 +1,7 @@
-package com.thoughtworks;
+package com.thoughtworks.discounts;
+
+import com.thoughtworks.Order;
+import com.thoughtworks.OrderedDish;
 
 public class OriginalPrice implements Discount {
     private Order order;

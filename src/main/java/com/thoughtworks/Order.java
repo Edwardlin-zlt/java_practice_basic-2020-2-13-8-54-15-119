@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class Order {
     private String rawOrder;
-    private ArrayList<OrderedDish> orderedDishes;
+    private ArrayList<OrderedDish> orderedDishes = new ArrayList<>();
 
     private Order() {
         rawOrder = "";
-        orderedDishes = new ArrayList<>();
     }
 
     public static Order orderParse(String rawOrder) {

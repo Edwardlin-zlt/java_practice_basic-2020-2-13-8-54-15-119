@@ -1,5 +1,7 @@
 package com.thoughtworks;
 
+import com.thoughtworks.discounts.Discount;
+
 public abstract class InfoRender {
 
     public static String render(Order order, Discount discountType, double finalPrice) {
